@@ -1,4 +1,4 @@
-# barion v0.1.0
+# barion
 
 <sup> (c) Copyright M. Shahab SANJARI 2014 </sup>
 
