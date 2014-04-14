@@ -1,6 +1,7 @@
 # barion
-
 <sup> (c) Copyright M. Shahab SANJARI 2014 </sup>
+
+![barion](https://raw.githubusercontent.com/xaratustrah/barion/master/rsrc/icon128.png)
 
 ## About
 
