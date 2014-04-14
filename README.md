@@ -4,7 +4,7 @@
 
 ## About
 
-** barion ** is a program for the display of scientific information and 
+**barion** is a program for the display of scientific information and 
 calculations related to periodic table of elements used specifically in the field
 of accelerator physics and related sciences. This program provides a convenient
 interface to the published data on atomic masses in the world famous 
