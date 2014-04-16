@@ -53,7 +53,7 @@ readme:
 	xxd -i README.md > inc/Readme.h
 	$(SED) 's/unsigned/const/g' inc/Readme.h
 
-# needs sudo under linux
+# may need sudo under linux for system wide ROOT installation
 install_icons:
 	cp -f rsrc/a?.png $(ROOTSYS)/icons/
 uninstall_icons:
