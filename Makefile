@@ -8,10 +8,12 @@ ifeq ($(OS_NAME),darwin)
 STDINCDIR := -I/opt/local/include
 STDLIBDIR := -L/opt/local/lib
 EXTRAFLAG := -Qunused-arguments
+SED := sed -i ""
 else
 STDINCDIR := 
 STDLIBDIR := 
 EXTRAFLAG :=
+SED := sed -i
 endif
 
 LDFLAGS := $(shell root-config --libs --glibs) -lSpectrum
@@ -47,7 +49,7 @@ osxapp:
 
 readme:
 	xxd -i README.md > inc/Readme.h
-	sed -i "" 's/unsigned/const/g' inc/Readme.h
+	$(SED) 's/unsigned/const/g' inc/Readme.h
 dmg:
 	hdiutil create $(TARGET).dmg -volname "$(TARGET)" -fs HFS+ -srcfolder $(TARGET).app
 
