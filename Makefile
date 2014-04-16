@@ -52,6 +52,13 @@ osxapp:
 readme:
 	xxd -i README.md > inc/Readme.h
 	$(SED) 's/unsigned/const/g' inc/Readme.h
+
+# needs sudo under linux
+install_icons:
+	cp -f rsrc/a?.png $(ROOTSYS)/icons/
+uninstall_icons:
+	rm -f $(ROOTSYS)/icons/a?.png
+
 dmg:
 	hdiutil create $(TARGET).dmg -volname "$(TARGET)" -fs HFS+ -srcfolder $(TARGET).app
 
