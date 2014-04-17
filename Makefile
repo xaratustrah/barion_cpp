@@ -20,7 +20,7 @@ endif
 
 LDFLAGS := $(shell root-config --libs --glibs) -lSpectrum
 CPPFLAGS := $(shell root-config --cflags)
-CPPFLAGS += -g
+CPPFLAGS += -g -Wall
 INCDIR=./inc/
 SRCDIR=./src/
 
@@ -53,7 +53,7 @@ readme:
 	xxd -i README.md > inc/Readme.h
 	$(SED) 's/unsigned/const/g' inc/Readme.h
 
-# may need sudo under linux for system wide ROOT installation
+# may need sudo depending on the installation path of ROOT
 install_icons:
 	cp -f rsrc/a?.png $(ROOTSYS)/icons/
 uninstall_icons:

@@ -21,10 +21,8 @@
 #define __Particle_H__
 
 #include <TTree.h>
+#include "Constants.h"
 
-const Double_t CC = 299792458; // m/s
-const Double_t UU = 931.4940023; // MeV/C^2
-const Double_t EE = 1.602176565e-19; // Coulombs
 
 class Particle
 {

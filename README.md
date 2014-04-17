@@ -85,13 +85,23 @@ Now you are ready for compilation. Just type
 
 `make`
 
+Finally you need to install the icons in the ROOTSYS/icons directory. Depending
+where you have installed ROOT (i.e. as a fix installation on / or as a floating
+installation in your home directory) you may need **sudo**.
+
+`make install_icons`
+
+You can also remove the icons at a later time by
+
+`make uninstall_icons`
+
 #### Building the Database
 
 First you need to download the database file **mass12.mass** from the [AME & 
 AMDC Homepage](http://amdc.impcas.ac.cn/evaluation/data2012/ame.html). Use the 
 helper script *ame_data_extractor.rb* to extract the data like as follows:
 
-`ruby ./ame_data_extractor.rb mass12.mass > mass12.modified`
+`ruby ./ame_data_extractor.rb mass.mass12 > mass12.modified`
 
 Then run the program with the -c option to create the binary database:
 
@@ -102,9 +112,16 @@ A file with the name of *database.root* will be created. You may remove the file
 
 ## Usage
 
-For normal usage, one should start the program without any options. After the 
-program finds the database file, it will start with a graphical window. The 
+The program can either be started using the application release bundle under OSX. 
+Alternatively on all systems, the program can be started using a command line.
+The program accepts three command line patterns:
+
+- Like mentioned above for creating the database `./barion -c mass12.modified`
+- By explicitly choosing a database file `./barion PATH/TO/database.root`
+- Or just without any options `./barion`, in case the database file is in the current directory.
+
+After the program finds the database file, it will start with a graphical window. The 
 program interface allows for navigation around the nuclidic chart and calculation 
 of values related with proper settings. The number entry fields can be changed 
-by their buttons. Here one can use shift or ctrl or both to accelerate the 
-increment step. The binary bundle is invoked by double clicking on the icon.
+by their buttons. Here one can use **shift** or **ctrl** or both to accelerate the 
+increment step.
