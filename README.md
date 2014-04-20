@@ -81,13 +81,13 @@ should run the script provided by ROOT in order to set the **PATH** variables:
 
 `/path/to/root/bin/thisroot.sh`
 
-Now you are ready for compilation. Just type
+Now you are ready for compilation. First get the repositoty 
 
-`make`
+`git clone https://github.com/xaratustrah/barion`
 
-Finally you need to install the icons in the ROOTSYS/icons directory. Depending
-where you have installed ROOT (i.e. as a fix installation on / or as a floating
-installation in your home directory) you may need **sudo**.
+and then type `make`. Finally you need to install the icons in the ROOTSYS/icons
+directory. Depending where you have installed ROOT (i.e. as a fix installation 
+### on / or as a floating installation in your home directory) you may need **sudo**.
 
 `make install_icons`
 

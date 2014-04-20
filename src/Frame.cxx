@@ -33,6 +33,7 @@
 #include <TGComboBox.h>
 #include <Riostream.h>
 #include <TSystem.h>
+#include <TUnixSystem.h>
 
 #include "Frame.h"
 #include "Particle.h"
@@ -192,7 +193,7 @@ Frame::Frame(const TGWindow *p,UInt_t w,UInt_t h, TTree * t) //
      TGPictureButton *fButton[NBUTTON];
      for (int i = 0; i< NBUTTON; i++)
      {
-	  fButton[i] = new TGPictureButton(fCFrameButtons, gClient->GetPicture(Form(icondir+"a%d.png",i+1)));
+	  fButton[i] = new TGPictureButton(fCFrameButtons, gClient->GetPicture(Form("%s/rsrc/a%d.png",gSystem->WorkingDirectory(),i+1)));
 	  fCFrameButtons->AddFrame(fButton[i], new TGLayoutHints(kLHintsTop | kLHintsExpandX, 2, 2, 2, 2));
 	  fButton[i]->SetToolTipText("Move around nuclidic chart.");
 	  fButton[i]->Connect("Clicked()", "Frame", this, Form("navigate%d()", i+1));
