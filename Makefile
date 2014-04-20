@@ -1,10 +1,16 @@
 # barion
 # Makefile
 
+# default installation path
+ifndef PREFIX
+PREFIX = /opt/local/
+endif
+
 CXX = g++
 LD = g++
 CINT = rootcint
 
+# mac vs linux
 OS_NAME:=$(shell uname -s | tr A-Z a-z)
 ifeq ($(OS_NAME),darwin)
 STDINCDIR := -I/opt/local/include
@@ -42,22 +48,23 @@ dict:
 	$(CINT) -f Frame_Dict.cxx -c $(INCDIR)Frame.h $(INCDIR)Frame_LinkDef.h
 	$(CXX) $(CPPFLAGS) -c Frame_Dict.cxx
 
-osxapp:
-	cp -rf root_runtime $(TARGET).app/Contents/Resources/
-	cp -f $(TARGET) $(TARGET).app/Contents/Resources/
-	cp -f rsrc/icon.icns $(TARGET).app/Contents/Resources/AutomatorApplet.icns
-	cp -f rsrc/database.root $(TARGET).app/Contents/Resources/
-	cp -f rsrc/a?.png $(TARGET).app/Contents/Resources/root_runtime/icons/
-
 readme:
 	xxd -i README.md > inc/Readme.h
 	$(SED) 's/unsigned/const/g' inc/Readme.h
 
-# may need sudo depending on the installation path of ROOT
-install_icons:
-	cp -f rsrc/a?.png $(ROOTSYS)/icons/
-uninstall_icons:
-	rm -f $(ROOTSYS)/icons/a?.png
+osxapp:
+	cp -rf root_runtime $(TARGET).app/Contents/Resources/
+	cp -f $(TARGET) $(TARGET).app/Contents/Resources/
+	cp -f rsrc/icon.icns $(TARGET).app/Contents/Resources/AutomatorApplet.icns
+	# cp -f rsrc/database.root $(TARGET).app/Contents/Resources/
+	# cp -f rsrc/a?.png $(TARGET).app/Contents/Resources/root_runtime/icons/
+	cp -rf rsrc $(TARGET).app/Contents/Resources/
+
+# may need sudo
+install:
+	install -d $(PREFIX)/barion
+	install barion $(PREFIX)/barion/
+	cp -rf rsrc $(PREFIX)/barion/
 
 dmg:
 	hdiutil create $(TARGET).dmg -volname "$(TARGET)" -fs HFS+ -srcfolder $(TARGET).app
