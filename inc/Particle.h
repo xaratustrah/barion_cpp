@@ -21,8 +21,6 @@
 #define __Particle_H__
 
 #include <TTree.h>
-#include "Constants.h"
-
 
 class Particle
 {
@@ -54,6 +52,7 @@ public:
     Int_t getRevolutionHarmonic();
     Double_t getNumberOfIons();
     Double_t getAtomicMassInU();
+    Int_t getElBiEn(Int_t, Int_t);
     Bool_t found;
 };
 

@@ -55,7 +55,7 @@ dict:
 
 readme:
 	$(XXD) README.md > inc/Readme.h
-	$(SED) 's/unsigned/const/g' inc/Readme.h
+	$(SED) 's/unsigned/static const/g' inc/Readme.h
 
 db:
 	curl $(DBURL) > mass

@@ -23,6 +23,9 @@
 #include <TMath.h>
 
 #include "Particle.h"
+#include "Constants.h"
+#include "ElBiEn.h"
+
 //______________________________________________________________________________
 Particle::Particle(){}
 
@@ -95,6 +98,7 @@ TString Particle::getResults()
     s += Form("Gamma:\t\t\t%0.12g\n", getGamma());
     s += Form("Brho:\t\t\t%0.12g [Tm]\n", getMagneticRigidity());
     s += Form("Path length:\t\t%0.12g [m]\n", path_length);
+    s += Form("El. Binding En.:\t%d [keV]\n", getElBiEn(zz,qq));
     s += Form("m/Q:\t\t\t%0.12g\n", getAtomicMassInU()/qq);
     s += Form("Rev. freq.:\t\t%0.12g [MHz]\n", getRevolutionFrequency());
 //    s += Form("\t\t\t(%0.12g,%0.12g) around analysis f0\n", , (getRevolutionFrequency()*getRevolutionHarmonic())-f0);
@@ -121,6 +125,16 @@ TString Particle::getResults()
     s += Form("Ion beam current:\t%0.12g\n", IB);
     
     return s;
+}
+
+//______________________________________________________________________________
+Int_t Particle::getElBiEn(Int_t zz, Int_t qq)
+{
+    // Total energy that will be freed, by building an ion
+    // out of a nucleaus and a (z-q) electrons
+    // 0 is set out
+    //[row is from 1 to 101][col is 1 to 100]
+    return ElBiEn[zz][zz - qq];
 }
 
 //______________________________________________________________________________
