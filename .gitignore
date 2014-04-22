@@ -1,3 +1,11 @@
+*_Dict*
+root_runtime
+.DS_Store
+*.xcode*
+barion
+database.root
+
+
 # Compiled Object files
 *.slo
 *.lo
