@@ -5,10 +5,16 @@
 ifndef PREFIX
 PREFIX = /opt/local/
 endif
-
+ifndef SYSTEMDIR
+SYSTEMDIR=/usr/local/bin
+endif
+DBURL= http://amdc.impcas.ac.cn/evaluation/data2012/data/mass.mas12
 CXX = g++
 LD = g++
 CINT = rootcint
+XXD = xxd -i
+CP = cp -rf
+INSTALL= install
 
 # mac vs linux
 OS_NAME:=$(shell uname -s | tr A-Z a-z)
@@ -26,7 +32,7 @@ endif
 
 LDFLAGS := $(shell root-config --libs --glibs) -lSpectrum
 CPPFLAGS := $(shell root-config --cflags)
-CPPFLAGS += -g -Wall
+CPPFLAGS += -g -Wall $(EXTRAFLAG)
 INCDIR=./inc/
 SRCDIR=./src/
 
@@ -35,8 +41,7 @@ SRC = $(SRCDIR)Frame.cxx $(SRCDIR)Application.cxx $(SRCDIR)Particle.cxx $(SRCDIR
 OBJ = $(SRC:.cxx=.o) 
 
 all : readme $(TARGET)
-app: clean all osxapp
-dist : clean all osxapp dmg tgz
+arch : clean dmg tgz
 
 $(TARGET) : dict readme $(OBJ) 
 	$(LD) $(CPPFLAGS) $(LDFLAGS) -I$(INCDIR) -o $(TARGET) $(OBJ)
@@ -49,22 +54,29 @@ dict:
 	$(CXX) $(CPPFLAGS) -c Frame_Dict.cxx
 
 readme:
-	xxd -i README.md > inc/Readme.h
+	$(XXD) README.md > inc/Readme.h
 	$(SED) 's/unsigned/const/g' inc/Readme.h
 
-osxapp:
-	cp -rf root_runtime $(TARGET).app/Contents/Resources/
-	cp -f $(TARGET) $(TARGET).app/Contents/Resources/
-	cp -f rsrc/icon.icns $(TARGET).app/Contents/Resources/AutomatorApplet.icns
-	# cp -f rsrc/database.root $(TARGET).app/Contents/Resources/
-	# cp -f rsrc/a?.png $(TARGET).app/Contents/Resources/root_runtime/icons/
-	cp -rf rsrc $(TARGET).app/Contents/Resources/
+db:
+	curl $(DBURL) > mass
+	tools/ame_data_extractor.rb mass > mass.mod
+	./$(TARGET) -c mass.mod
+	mv -f database.root rsrc/
+	rm -r mass mass.mod
+app:
+	$(CP) root_runtime $(TARGET).app/Contents/Resources/
+	$(CP) $(TARGET) $(TARGET).app/Contents/Resources/
+	$(CP) rsrc/icon.icns $(TARGET).app/Contents/Resources/AutomatorApplet.icns
+	$(CP) rsrc $(TARGET).app/Contents/Resources/
 
 # may need sudo
 install:
-	install -d $(PREFIX)/barion
-	install barion $(PREFIX)/barion/
-	cp -rf rsrc $(PREFIX)/barion/
+	$(INSTALL) -d $(PREFIX)/barion
+	$(INSTALL) barion $(PREFIX)/barion/
+	$(CP) rsrc $(PREFIX)/barion/
+
+symlink:
+	ln -s $(PREFIX)/barion/barion $(SYSTEMDIR)
 
 dmg:
 	hdiutil create $(TARGET).dmg -volname "$(TARGET)" -fs HFS+ -srcfolder $(TARGET).app

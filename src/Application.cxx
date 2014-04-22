@@ -54,16 +54,16 @@ TTree * read_tree (const char* filename){
     if((Bool_t)fexists(filename))
     {
         f = new TFile(filename);
-        cout << "Found database file in the current directory." << endl;
+//        cout << "Found database file in the current directory." << endl;
     }
     else if((Bool_t)fexists(Form("%s/rsrc/%s",gSystem->WorkingDirectory(), filename)))
     {
         f = new TFile(Form("%s/rsrc/%s",gSystem->WorkingDirectory(), filename));
-        cout << "Found database file in the resources directory." << endl;
+//        cout << "Found database file in the resources directory." << endl;
     }
     else
     {
-        cout << "Database file is missing. Please create the database first." << endl;
+        cout << "Database file is missing or corrupt. Please create the database first." << endl;
         return 0;
     }
     
@@ -77,6 +77,11 @@ TTree * read_tree (const char* filename){
 //______________________________________________________________________________
 void make_tree(const char * filename)
 {
+    if(!(Bool_t)fexists(filename)){
+        cout << "File " << filename << " does not exist!" <<endl;
+        return;
+    }
+    
     Int_t aa, zz, experimental_flag;
     Double_t am_u, am_unc_u, mass_exess_kev, mass_exess_unc_kev, beu_kev, beu_unc_kev, decay_e_kev, decay_e_unc_kev;
     string decay_type_tmp, name_tmp;
@@ -133,7 +138,7 @@ void showFrame(TTree * t) {
 //______________________________________________________________________________
 int main(int argc, char ** argv) {
     
-    TTree * t;
+    TTree * t = 0;
     if (argc == 1){
         t = read_tree("database.root");
     }
@@ -141,9 +146,16 @@ int main(int argc, char ** argv) {
         t = read_tree(argv[1]);
     }
     else if (argc == 3){
-        if (!strcmp(argv[2],"-c") || !strcmp(argv[2],"-C"))
-            make_tree(argv[3]);
-        exit(EXIT_SUCCESS);        
+        if (!strcmp(argv[1],"-c") || !strcmp(argv[1],"-C"))
+        {
+            make_tree(argv[2]);
+            exit(EXIT_SUCCESS);
+        }
+        else{
+            cout << "Usage:\n\n";
+            cout << "    barion -c reduced.mass.file\n\nor\n\n    barion path_to/database.root\n\nor if the database.root is in the current directory, just\n\n    barion\n\n";
+            exit(EXIT_SUCCESS);
+        }
     }
     else {
         cout << "Usage:\n\n";
