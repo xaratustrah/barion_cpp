@@ -7,12 +7,12 @@
 
 **barion** is a program for the display of scientific information and 
 calculations related to periodic table of elements used specifically in the field
-of accelerator physics and related sciences. This program provides a convenient
-interface to the published data on atomic masses in the world famous 
-**Atomic Mass Evaluation by G. Audi and colleagues**. It can be used in a 
-variety of applications where the knowledge of the elementary properties of 
-matter is of importance, such as medical radio therapy, fundamental physics 
-research, etc. One can perform
+of accelerator physics and related sciences. Specifically this program can be used 
+in experiments involving mass and lifetime measurements of radioactive ion beams. 
+In essence, this program provides a convenient interface to the published data on
+atomic masses in the world famous  **Atomic Mass Evaluation by G. Audi and 
+colleagues**. It can be used in a variety of applications such as medical radio 
+therapy, astrophysics and fundamental physics research, etc. One can perform
 
 - Identification of nuclides 
 - Settings of accelerator parameters specially the storage rings
@@ -85,15 +85,15 @@ Now you are ready for compilation. First get the repositoty
 
 `git clone https://github.com/xaratustrah/barion`
 
-and then type `make`. Finally you need to install the icons in the ROOTSYS/icons
-directory. Depending where you have installed ROOT (i.e. as a fix installation 
-### on / or as a floating installation in your home directory) you may need **sudo**.
+and then type `make`. For a complete installation for example in a system directory, you may type
 
-`make install_icons`
+`
+PREFIX=./path/to/prefix make all db install
+`
 
-You can also remove the icons at a later time by
+You also have the possibility to make a symlink in a system directory by
 
-`make uninstall_icons`
+`make symlink`
 
 #### Building the Database
 
@@ -110,6 +110,12 @@ Then run the program with the -c option to create the binary database:
 A file with the name of *database.root* will be created. You may remove the files 
 *mass12.mass* and *mass12.modified* since they are no longer needed by the program.
 
+Alternatively you can use the makefile to do the above procedure. Just type:
+
+`make db`
+
+and the rest is done automatically.
+
 ## Usage
 
 The program can either be started using the application release bundle under OSX. 
@@ -125,3 +131,7 @@ program interface allows for navigation around the nuclidic chart and calculatio
 of values related with proper settings. The number entry fields can be changed 
 by their buttons. Here one can use **shift** or **ctrl** or both to accelerate the 
 increment step.
+
+
+
+

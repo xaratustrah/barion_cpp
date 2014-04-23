@@ -98,8 +98,7 @@ TString Particle::getResults()
     s += Form("Gamma:\t\t\t%0.12g\n", getGamma());
     s += Form("Brho:\t\t\t%0.12g [Tm]\n", getMagneticRigidity());
     s += Form("Path length:\t\t%0.12g [m]\n", path_length);
-    s += Form("El. Binding En.:\t%d [eV]\n", getElBiEn(zz,qq));
-    s += Form("m/Q:\t\t\t%0.12g\n", getAtomicMassInU()/qq);
+    s += Form("m/Q (ionic):\t\t%0.12g\n", getIonicMassInU()/qq);
     s += Form("Rev. freq.:\t\t%0.12g [MHz]\n", getRevolutionFrequency());
     s += Form("%dth harmonic\t\t%0.12g [kHz] @ %0.12g [MHz]\n", getRevolutionHarmonic(),1000*((getRevolutionFrequency()*getRevolutionHarmonic())-f0), getRevolutionFrequency()*getRevolutionHarmonic());
     s += Form("%dth harmonic\t\t%0.12g [kHz] @ %0.12g [MHz]\n", getRevolutionHarmonic()+1,1000*((getRevolutionFrequency()*(getRevolutionHarmonic()+1))-f0), getRevolutionFrequency()*(getRevolutionHarmonic()+1));
@@ -107,6 +106,7 @@ TString Particle::getResults()
     s += "\nDetailed information:\n";
     s += "---------------------\n\n";
     s += Form("Atom. Mass:\t\t%.12g [u]\n", getAtomicMassInU());
+    s += Form("El. Binding En.:\t%d [eV]\n", getElBiEn(zz,qq));
     s += Form("Ion. Mass:\t\t%.12g [u]\n", getIonicMassInU());
     s += Form("\t\t\t%.12g [MeV/c^2]\n", toMeV(getIonicMassInU()));
     s += Form("\t\t\t%.12g [Kg]\n", toKg(getIonicMassInU()));
@@ -170,12 +170,12 @@ Double_t Particle::getMagneticRigidity(){
 
 //______________________________________________________________________________
 Double_t Particle::getRelativisticMomentum(){
-    return toMeV(getAtomicMassInU())*getBeta()*getGamma();
+    return toMeV(getIonicMassInU())*getBeta()*getGamma();
 }
 
 //______________________________________________________________________________
 Double_t Particle::getRelativisticMass(){
-    return toMeV(getAtomicMassInU())*getGamma();
+    return toMeV(getIonicMassInU())*getGamma();
 }
 
 //______________________________________________________________________________
@@ -185,7 +185,7 @@ Double_t Particle::getBeta(){
 
 //______________________________________________________________________________
 Double_t Particle::getGamma(){
-    return getTotalEnergyMeV()/toMeV(getAtomicMassInU()) + 1.0;
+    return getTotalEnergyMeV()/toMeV(getIonicMassInU()) + 1.0;
 }
 
 //______________________________________________________________________________
