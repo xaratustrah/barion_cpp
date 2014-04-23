@@ -98,18 +98,18 @@ TString Particle::getResults()
     s += Form("Gamma:\t\t\t%0.12g\n", getGamma());
     s += Form("Brho:\t\t\t%0.12g [Tm]\n", getMagneticRigidity());
     s += Form("Path length:\t\t%0.12g [m]\n", path_length);
-    s += Form("El. Binding En.:\t%d [keV]\n", getElBiEn(zz,qq));
+    s += Form("El. Binding En.:\t%d [eV]\n", getElBiEn(zz,qq));
     s += Form("m/Q:\t\t\t%0.12g\n", getAtomicMassInU()/qq);
     s += Form("Rev. freq.:\t\t%0.12g [MHz]\n", getRevolutionFrequency());
-//    s += Form("\t\t\t(%0.12g,%0.12g) around analysis f0\n", , (getRevolutionFrequency()*getRevolutionHarmonic())-f0);
     s += Form("%dth harmonic\t\t%0.12g [kHz] @ %0.12g [MHz]\n", getRevolutionHarmonic(),1000*((getRevolutionFrequency()*getRevolutionHarmonic())-f0), getRevolutionFrequency()*getRevolutionHarmonic());
     s += Form("%dth harmonic\t\t%0.12g [kHz] @ %0.12g [MHz]\n", getRevolutionHarmonic()+1,1000*((getRevolutionFrequency()*(getRevolutionHarmonic()+1))-f0), getRevolutionFrequency()*(getRevolutionHarmonic()+1));
     s += Form("Number of ions:\t\t%g\n", getNumberOfIons());
     s += "\nDetailed information:\n";
     s += "---------------------\n\n";
     s += Form("Atom. Mass:\t\t%.12g [u]\n", getAtomicMassInU());
-    s += Form("\t\t\t%.12g [MeV/c^2]\n", toMeV(getAtomicMassInU()));
-    s += Form("\t\t\t%.12g [Kg]\n", toKg(getAtomicMassInU()));
+    s += Form("Ion. Mass:\t\t%.12g [u]\n", getIonicMassInU());
+    s += Form("\t\t\t%.12g [MeV/c^2]\n", toMeV(getIonicMassInU()));
+    s += Form("\t\t\t%.12g [Kg]\n", toKg(getIonicMassInU()));
     s += Form("Kin. En./u\t\t%.12g [MeV/u]\n", ke_u);
     s += Form("Tot. Kin. En.\t\t%.12g [MeV]\n", getTotalEnergyMeV());
     s += Form("Beta * Gamma:\t\t%0.12g\n", getBeta()*getGamma());
@@ -191,6 +191,11 @@ Double_t Particle::getGamma(){
 //______________________________________________________________________________
 Double_t Particle::getAtomicMassInU(){
     return am_u;
+}
+
+//______________________________________________________________________________
+Double_t Particle::getIonicMassInU(){
+    return getAtomicMassInU()+toU((getElBiEn(zz, 0)-getElBiEn(zz, qq))/1.0e6-qq*ME);
 }
 
 //______________________________________________________________________________

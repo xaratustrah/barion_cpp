@@ -21,9 +21,9 @@
 #define __Constants_H__
 
 
-const Double_t CC = 299792458; // m/s
-const Double_t UU = 931.4940023; // MeV/C^2
-const Double_t EE = 1.602176565e-19; // Coulombs
-
+static const Double_t CC = 299792458; // m/s
+static const Double_t UU = 931.4940023; // MeV/C^2
+static const Double_t EE = 1.602176565e-19; // Coulombs
+static const Double_t ME = 0.510998928 ; // MeV/C^2
 
 #endif

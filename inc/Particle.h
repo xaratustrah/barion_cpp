@@ -52,6 +52,7 @@ public:
     Int_t getRevolutionHarmonic();
     Double_t getNumberOfIons();
     Double_t getAtomicMassInU();
+    Double_t getIonicMassInU();
     Int_t getElBiEn(Int_t, Int_t);
     Bool_t found;
 };
