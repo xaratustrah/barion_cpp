@@ -106,7 +106,10 @@ TString Particle::getResults()
     s += "\nDetailed information:\n";
     s += "---------------------\n\n";
     s += Form("Atom. Mass:\t\t%.12g [u]\n", getAtomicMassInU());
-    s += Form("El. Binding En.:\t%d [eV]\n", getElBiEn(zz,qq));
+    if(zz<=100)
+        s += Form("El. Binding En.:\t%d [eV]\n", getElBiEn(zz,qq));
+    else
+        s += Form("El. Binding En.:\tNot supported: Ionic mass = atomic mass.\n");
     s += Form("Ion. Mass:\t\t%.12g [u]\n", getIonicMassInU());
     s += Form("\t\t\t%.12g [MeV/c^2]\n", toMeV(getIonicMassInU()));
     s += Form("\t\t\t%.12g [Kg]\n", toKg(getIonicMassInU()));
@@ -195,7 +198,10 @@ Double_t Particle::getAtomicMassInU(){
 
 //______________________________________________________________________________
 Double_t Particle::getIonicMassInU(){
-    return getAtomicMassInU()+toU((getElBiEn(zz, 0)-getElBiEn(zz, qq))/1.0e6-qq*ME);
+    if(zz<=100)
+        return getAtomicMassInU()+toU((getElBiEn(zz, 0)-getElBiEn(zz, qq))/1.0e6-qq*ME);
+    else
+        return getAtomicMassInU();
 }
 
 //______________________________________________________________________________
