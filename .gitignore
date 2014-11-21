@@ -27,3 +27,11 @@ database.root
 *.exe
 *.out
 *.app
+
+*.dmg
+
+msvc.soluton
+
+rsrc/ElBiEn_2007.dat_original
+
+rsrc/ElBiEn_2007.dat
