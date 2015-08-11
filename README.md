@@ -1,9 +1,11 @@
 # barion
 <sup> (c) Copyright M. Shahab SANJARI 2014 </sup>
 
-![barion](https://raw.githubusercontent.com/xaratustrah/barion/master/rsrc/icon128.png)
+## This C++ version of **barion** is no longer maintained. It is kept here for reference only. Please refer to the new python based **[barion](https://github.com/xaratustrah/barion)**.
 
 ## About
+
+![barion](https://raw.githubusercontent.com/xaratustrah/barion/master/rsrc/icon128.png)
 
 **barion** is a program for the display of scientific information and 
 calculations related to periodic table of elements used specifically in the field
