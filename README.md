@@ -1,4 +1,4 @@
-# barion
+# barion (⛔️ DEPRECATED)
 <sup> (c) Copyright M. Shahab SANJARI 2014 </sup>
 
 ## This C++ version of **barion** is no longer maintained. It is kept here for reference only. Please refer to the new python based **[barion](https://github.com/xaratustrah/barion)**.
